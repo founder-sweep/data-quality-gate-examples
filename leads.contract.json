@@ -1,0 +1,56 @@
+{
+  "fields": {
+    "email": {
+      "type": "string"
+    },
+    "lead_id": {
+      "type": "identifier"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "nulls": {
+    "empty_string": true,
+    "whitespace_string": false
+  },
+  "rules": [
+    {
+      "action": "block",
+      "column": "lead_id",
+      "id": "required-id",
+      "type": "not_null"
+    },
+    {
+      "action": "block",
+      "column": "lead_id",
+      "id": "unique-id",
+      "null_policy": "fail",
+      "type": "unique"
+    },
+    {
+      "action": "block",
+      "id": "nonempty-file",
+      "min": 1,
+      "type": "row_count"
+    },
+    {
+      "action": "block",
+      "column": "email",
+      "id": "required-email",
+      "type": "not_null"
+    },
+    {
+      "action": "warn",
+      "column": "status",
+      "id": "lead-status",
+      "null_policy": "fail",
+      "type": "accepted_values",
+      "values": [
+        "new",
+        "qualified"
+      ]
+    }
+  ],
+  "schema_version": "1.0"
+}

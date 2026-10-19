@@ -1,0 +1,54 @@
+{
+  "name": "Data Quality Gate",
+  "product": "data-quality-gate",
+  "version": "quality-1.0.0",
+  "source_fingerprint": "165726ba15bf261a68a4cec294424c3704f3daa23b1f8e7003f53fb6a09c1299",
+  "description": "Check an entire original lead, order or inventory file against an approved contract before downstream writes.",
+  "formats": [
+    "csv",
+    "jsonl"
+  ],
+  "limits": {
+    "bytes": 10485760,
+    "records": 50000,
+    "fields": 100
+  },
+  "rules": [
+    "not_null",
+    "unique",
+    "accepted_values",
+    "null_rate",
+    "row_count",
+    "range"
+  ],
+  "outcomes": [
+    "continue",
+    "continue_with_warnings",
+    "block",
+    "error"
+  ],
+  "default_downstream_policy": "continue only; forward exact checked original bytes",
+  "approval": "explicit versioned contract and optional baseline hash approval",
+  "auth": "verified organization API key; browser session uses CSRF protections",
+  "mcp": "https://mcp.contentsweep.ai/v1/quality/mcp/",
+  "openapi": "https://mcp.contentsweep.ai/openapi.json",
+  "integration": "https://mcp.contentsweep.ai/quality/integrate",
+  "privacy": "https://mcp.contentsweep.ai/quality/privacy",
+  "retention": {
+    "uploads_hours": 24,
+    "reports_days": 7,
+    "receipts_days": 30
+  },
+  "billing": {
+    "pack_usd": 20,
+    "pack_checks": 100,
+    "trial_checks": 5,
+    "tax_behavior": "exclusive",
+    "price_description": "$20 plus applicable tax",
+    "unit": "completed full-file supported evaluation, including block/warning",
+    "subscription": false,
+    "automatic_overages": false,
+    "automatic_replenishment": false
+  },
+  "scope": "explicit rules only; no repair/remapping or independent business-meaning verification"
+}

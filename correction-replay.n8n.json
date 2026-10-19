@@ -1,0 +1,902 @@
+{
+  "name": "Data Quality Gate: correction-replay",
+  "nodes": [
+    {
+      "id": "run-manually",
+      "name": "Run manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        200
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "config",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        200,
+        200
+      ],
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\"baseUrl\": \"https://mcp.contentsweep.ai\", \"fileContent\": \"lead_id,email,status\\n001,synthetic@example.invalid,new\\n002,fixture@example.invalid,qualified\\n\", \"format\": \"csv\", \"contractId\": \"YOUR_APPROVED_CONTRACT_ID\", \"baselineId\": \"\", \"originalJobId\": \"YOUR_REJECTED_JOB_ID\", \"idempotencyKey\": \"YOUR_STABLE_UNIQUE_KEY\", \"operatorConfigured\": false, \"destinationEnabled\": false, \"destinationUrl\": \"https://YOUR_DESTINATION.invalid/import\", \"pollDelaySeconds\": 5}"
+      }
+    },
+    {
+      "id": "operator-configured",
+      "name": "Operator configured",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('Config').first().json.operatorConfigured === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "original-receipt",
+      "name": "Original receipt",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        600,
+        200
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $('Config').first().json.baseUrl + '/v1/quality/jobs/' + $('Config').first().json.originalJobId + '/receipt' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CONFIGURE_QUALITY_KEY",
+          "name": "Quality organization X-API-Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "upload-actual-file",
+      "name": "Upload actual file",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        800,
+        200
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.baseUrl + '/v1/quality/uploads?format=' + $('Config').first().json.format }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/octet-stream",
+        "body": "={{ $('Config').first().json.fileContent }}"
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CONFIGURE_QUALITY_KEY",
+          "name": "Quality organization X-API-Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "new-corrected-bytes",
+      "name": "New corrected bytes",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1000,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('Upload actual file').first().json.sha256 !== $('Original receipt').first().json.input_fingerprint }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "quote-one-check",
+      "name": "Quote one check",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        200
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.baseUrl + '/v1/quality/quotes' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {upload_id: $('Upload actual file').first().json.id, contract_id: $('Config').first().json.contractId, baseline_id: $('Config').first().json.baselineId || null} }}"
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CONFIGURE_QUALITY_KEY",
+          "name": "Quality organization X-API-Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "bound-funded-quote",
+      "name": "Bound funded quote",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1400,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.status === 'quoted' && $json.funded === true && $json.input_fingerprint === $('Upload actual file').first().json.sha256 }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "start-idempotent-check",
+      "name": "Start idempotent check",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1600,
+        200
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.baseUrl + '/v1/quality/jobs' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {quote_id: $('Quote one check').first().json.id, idempotency_key: $('Config').first().json.idempotencyKey} }}"
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CONFIGURE_QUALITY_KEY",
+          "name": "Quality organization X-API-Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "wait",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1800,
+        200
+      ],
+      "parameters": {
+        "amount": "={{ $('Config').first().json.pollDelaySeconds }}",
+        "unit": "seconds"
+      }
+    },
+    {
+      "id": "job-status",
+      "name": "Job status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2000,
+        200
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $('Config').first().json.baseUrl + '/v1/quality/jobs/' + $('Start idempotent check').first().json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CONFIGURE_QUALITY_KEY",
+          "name": "Quality organization X-API-Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "terminal",
+      "name": "Terminal",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2200,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ ['completed','failed'].includes($json.status) }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "polling-budget",
+      "name": "Polling budget",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2400,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ ['queued','running'].includes($json.status) && $runIndex < 24 }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "continue-only",
+      "name": "Continue only",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2600,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.status === 'completed' && $json.verdict === 'continue' && $json.receipt.input_fingerprint === $('Upload actual file').first().json.sha256 }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "report",
+      "name": "Report",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2800,
+        200
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $('Config').first().json.baseUrl + '/v1/quality/jobs/' + $('Start idempotent check').first().json.id + '/report' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CONFIGURE_QUALITY_KEY",
+          "name": "Quality organization X-API-Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "complete-receipt-evidence",
+      "name": "Complete receipt evidence",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3000,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.full_file_validation === true && $json.verdict === 'continue' && $json.input_fingerprint === $('Upload actual file').first().json.sha256 && $json.record_count === $('Upload actual file').first().json.row_count }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "download-checked-original",
+      "name": "Download checked original",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3200,
+        200
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $('Config').first().json.baseUrl + '/v1/quality/jobs/' + $('Start idempotent check').first().json.id + '/original' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000,
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "checkedOriginal"
+            }
+          }
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CONFIGURE_QUALITY_KEY",
+          "name": "Quality organization X-API-Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "verify-original-sha256",
+      "name": "Verify original SHA256",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3400,
+        200
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const bytes = await this.helpers.getBinaryDataBuffer(0, 'checkedOriginal');\nconst sha = require('crypto').createHash('sha256').update(bytes).digest('hex');\nconst receipt = $('Job status').last().json.receipt;\nif (sha !== receipt.input_fingerprint || receipt.verdict !== 'continue') throw new Error('Changed data: stop writes');\nreturn $input.all();"
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "destination-authorized",
+      "name": "Destination authorized",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3600,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('Config').first().json.destinationEnabled === true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "write-checked-original",
+      "name": "Write checked original",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3800,
+        200
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.destinationUrl }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "checkedOriginal",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Input-SHA256",
+              "value": "={{ $('Upload actual file').first().json.sha256 }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "={{ $('Config').first().json.format === 'csv' ? 'text/csv' : 'application/x-ndjson' }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CONFIGURE_DESTINATION_KEY",
+          "name": "Your CRM/database destination"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "review-required",
+      "name": "Review required",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        4000,
+        200
+      ],
+      "parameters": {
+        "errorMessage": "Quality review required: warning, block, error, changed data, unfunded/expired quote, timeout or destination not authorized. Inspect execution and receipt. No automatic write occurred."
+      }
+    },
+    {
+      "id": "setup-and-semantics",
+      "name": "Setup and semantics",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4200,
+        200
+      ],
+      "parameters": {
+        "width": 560,
+        "height": 330,
+        "content": "## Configure and review first\nSign in by verified email for five quality trials. Create and approve a contract in /quality/app; baseline recipe also needs an explicitly approved reference. Configure Header Auth X-API-Key, separate destination credentials and an endpoint accepting the original file. Edit Config then set operatorConfigured/destinationEnabled true only after review.\n\n$20 plus applicable tax for 100 prepaid checks. Completed block/warning is billable; errors release credits. Retain original quote/key on retries. Corrected bytes need a new key and quote. Polling stops after 25 status reads. Only continue reaches destination. Verify original SHA256 uses n8n built-in crypto: enable NODE_FUNCTION_ALLOW_BUILTIN=crypto for your runners. If unavailable, verification errors stop writes.\n\nReplace the synthetic Config fileContent with the actual file bytes from your incoming workflow. The service download forwards the exact uploaded original; report JSON is never customer data."
+      }
+    }
+  ],
+  "connections": {
+    "Run manually": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Operator configured",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Operator configured": {
+      "main": [
+        [
+          {
+            "node": "Original receipt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Original receipt": {
+      "main": [
+        [
+          {
+            "node": "Upload actual file",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload actual file": {
+      "main": [
+        [
+          {
+            "node": "New corrected bytes",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New corrected bytes": {
+      "main": [
+        [
+          {
+            "node": "Quote one check",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quote one check": {
+      "main": [
+        [
+          {
+            "node": "Bound funded quote",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bound funded quote": {
+      "main": [
+        [
+          {
+            "node": "Start idempotent check",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start idempotent check": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Job status": {
+      "main": [
+        [
+          {
+            "node": "Terminal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Job status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Terminal": {
+      "main": [
+        [
+          {
+            "node": "Continue only",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Polling budget",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Polling budget": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Continue only": {
+      "main": [
+        [
+          {
+            "node": "Report",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Report": {
+      "main": [
+        [
+          {
+            "node": "Complete receipt evidence",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Complete receipt evidence": {
+      "main": [
+        [
+          {
+            "node": "Download checked original",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download checked original": {
+      "main": [
+        [
+          {
+            "node": "Verify original SHA256",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify original SHA256": {
+      "main": [
+        [
+          {
+            "node": "Destination authorized",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Destination authorized": {
+      "main": [
+        [
+          {
+            "node": "Write checked original",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write checked original": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Review required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

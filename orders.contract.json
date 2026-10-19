@@ -1,0 +1,47 @@
+{
+  "fields": {
+    "amount": {
+      "decimal_separator": ".",
+      "thousands_separator": null,
+      "type": "number"
+    },
+    "order_id": {
+      "type": "identifier"
+    }
+  },
+  "nulls": {
+    "empty_string": true,
+    "whitespace_string": false
+  },
+  "rules": [
+    {
+      "action": "block",
+      "column": "order_id",
+      "id": "required-id",
+      "type": "not_null"
+    },
+    {
+      "action": "block",
+      "column": "order_id",
+      "id": "unique-id",
+      "null_policy": "fail",
+      "type": "unique"
+    },
+    {
+      "action": "block",
+      "id": "nonempty-file",
+      "min": 1,
+      "type": "row_count"
+    },
+    {
+      "action": "block",
+      "column": "amount",
+      "id": "nonnegative-value",
+      "max": "1000000",
+      "min": "0",
+      "null_policy": "fail",
+      "type": "range"
+    }
+  ],
+  "schema_version": "1.0"
+}

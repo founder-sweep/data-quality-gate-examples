@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.contentsweep/data-quality-gate",
+  "title": "Data Quality Gate",
+  "description": "Check entire lead, order and inventory CSV/JSONL against approved contracts before writes.",
+  "version": "1.0.0",
+  "websiteUrl": "https://mcp.contentsweep.ai/quality?source=mcp-registry&channel=mcp&asset=data-quality-gate&campaign=quality-lead-preflight-60d",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.contentsweep.ai/v1/quality/mcp/",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "description": "Verified organization API key",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

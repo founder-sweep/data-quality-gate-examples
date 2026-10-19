@@ -1,0 +1,54 @@
+{
+  "contract_hash": "1de31bb34660ea3fdac6027cf3288cdf1d95bb101f7f3e6973c20201771597a0",
+  "coverage": {
+    "business_meanings": "operator-approved; not independently verified",
+    "complete_file": true,
+    "field_counts": {
+      "quantity": {
+        "invalid_type": 0,
+        "missing": 0,
+        "null": 0
+      },
+      "sku": {
+        "invalid_type": 0,
+        "missing": 0,
+        "null": 0
+      }
+    },
+    "fields_checked": [
+      "quantity",
+      "sku"
+    ],
+    "fields_unchecked": [],
+    "records_evaluated": 2,
+    "rules_evaluated": 4
+  },
+  "engine_version": "quality-1.0.0",
+  "evaluated_rule_ids": [
+    "required-id",
+    "unique-id",
+    "nonempty-file",
+    "nonnegative-value"
+  ],
+  "failure_counts": {
+    "nonempty-file": 0,
+    "nonnegative-value": 0,
+    "required-id": 0,
+    "unique-id": 0
+  },
+  "findings": [],
+  "full_file_validation": true,
+  "input_fingerprint": "4290e3601eba94075babaf9c65a10dcfd988b10340c3f851033059e7b54d1081",
+  "privacy": "counts and bounded 1-based record references; no raw values",
+  "product": "data-quality-gate",
+  "record_count": 2,
+  "schema_version": "1.0",
+  "structure": {
+    "fields": [
+      "quantity",
+      "sku"
+    ],
+    "fingerprint": "81ec2d5ec602f1e3ded9735b652d11cd1de0d48c0da7931a9f46d9150f14bcf1"
+  },
+  "verdict": "continue"
+}

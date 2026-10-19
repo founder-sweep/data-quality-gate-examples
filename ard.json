@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:contentsweep.ai:server:data-quality-gate",
+      "displayName": "Data Quality Gate",
+      "type": "application/mcp-server-card+json",
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "version": "1.0.0",
+      "description": "Full-file automation preflight with approved contracts and exact numeric ranges.",
+      "url": "https://mcp.contentsweep.ai/quality/server-card.json",
+      "capabilities": [
+        "automation_preflight",
+        "complete_file_validation",
+        "approved_contracts"
+      ],
+      "representativeQueries": [
+        "Check this lead CSV before writing it to the CRM",
+        "Validate the whole order file against my approved rules"
+      ]
+    }
+  ]
+}
