@@ -5,9 +5,13 @@
 - [Offer](https://mcp.contentsweep.ai/quality): $20 plus applicable tax for 100 completed supported checks, five trials once per verified organization.
 - [Capabilities](https://mcp.contentsweep.ai/quality/capabilities.json): actual bounds, supported rules and outcome semantics.
 - [Integration](https://mcp.contentsweep.ai/quality/integrate): uploads, contract/baseline approval, quote, durable job, report, receipt, original download.
+- [Product skill](https://mcp.contentsweep.ai/quality/SKILL.md): reviewed Codex and Claude workflow.
+- [Task-to-tool reference](https://mcp.contentsweep.ai/quality/agent-assets/TOOL_REFERENCE.md): prerequisites, results, approval, credits and retries.
 - [n8n recipes](https://mcp.contentsweep.ai/quality/workflows): configure and qualify before enabling a destination.
 - [OpenAPI](https://mcp.contentsweep.ai/openapi.json): authenticated /v1/quality API.
 - [Privacy](https://mcp.contentsweep.ai/quality/privacy): originals 24h, reports 7d, receipts 30d; approved decisions until deletion.
+- [Agent workflow](https://mcp.contentsweep.ai/quality/agents): installable skill, authorization and funding.
+- [Product skill](https://mcp.contentsweep.ai/quality/skills/contentsweep-quality/SKILL.md): first check and repeat paid use.
 
 MCP: https://mcp.contentsweep.ai/v1/quality/mcp/; X-API-Key or Authorization Bearer organization key.
 Only continue permits downstream writes by default. Warnings, blocks, errors and timeouts need review.

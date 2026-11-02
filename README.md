@@ -1,5 +1,13 @@
 # Check lead CSV files before your agent writes to a CRM
 
+<!-- agent-current-status:start -->
+## Current status — November 1, 2026
+
+Hosted Quality engine quality-1.0.0; active MCP Registry descriptor 1.0.1. Five trials once per verified organization, then $20 plus applicable tax for 100 checks. Separate organization key required. Quality's existing n8n submission awaits owner Terms confirmation and creator eligibility; submission and acceptance are separate.
+
+[Agent setup](https://mcp.contentsweep.ai/quality/integrate) · [Product skill](https://mcp.contentsweep.ai/quality/SKILL.md) · [Task-to-tool reference](https://mcp.contentsweep.ai/quality/agent-assets/TOOL_REFERENCE.md). Skills support Codex and Claude Code and grant no upload, business-meaning approval, spending or destination-write permission. Historical test notes below retain their original scope; synthetic/internal qualification is not paid adoption.
+<!-- agent-current-status:end -->
+
 **Data Quality Gate** checks every row of an original lead, order or inventory CSV/JSONL against explicit contracts you review and approve. The workflow proceeds only on `continue`, then downloads and verifies the exact checked original before a destination write.
 
 [Try five checks free](https://mcp.contentsweep.ai/account/sign-in?product=data-quality-gate&source=github&channel=repository&asset=readme&campaign=quality-lead-preflight-60d) · [Integration guide](https://mcp.contentsweep.ai/quality/integrate?source=github&channel=repository&asset=readme&campaign=quality-lead-preflight-60d) · [Reproducible lead guides](https://mcp.contentsweep.ai/quality/guides?source=github&channel=repository&asset=readme&campaign=quality-lead-preflight-60d)
@@ -47,11 +55,11 @@ The destination receives downloaded original file bytes. Validation report JSON 
 
 ## Discovery and publishing
 
-`server.json` prepares `ai.contentsweep/data-quality-gate` at `/v1/quality/mcp/`, with a required secret organization key. `capabilities.json`, `llms.txt` and `ard.json` describe bounded implemented capabilities. Registry publication requires actual qualified HTTPS API/worker/MCP and n8n evidence matching the installed source fingerprint, exact descriptor review and owned DNS authentication. A prepared descriptor is not a registry listing.
+`server.json` describes the active Registry listing `ai.contentsweep/data-quality-gate` version 1.0.0 at `/v1/quality/mcp/`, with a required secret organization key. `capabilities.json`, `llms.txt` and `ard.json` describe bounded implemented capabilities. Registry publication requires actual qualified HTTPS API/worker/MCP and n8n evidence matching the installed source fingerprint, exact descriptor review and owned DNS authentication. The existing active listing was read back on November 1, 2026; changed future descriptors still require reviewed qualification.
 
 Use [the creator submission packet](N8N_SUBMISSION.md) after shared creator eligibility and the existing first-template queue are verified. Do not overwrite supplier-feed examples or publish private prospect packets, customer files, API keys or raw n8n execution logs.
 
-`scripts/publish-quality-examples.py` prepares a separate allowlisted payload for `founder-sweep/data-quality-gate-examples` without network mutation. `--publish` requires exact owner-reviewed repository/payload/source hashes and matching deployed HTTPS runtime proof; customer/private/unmanaged material is rejected. It checks remote HEAD even after an uncertain push. `scripts/publish-quality-registry.py` has a separate exact descriptor/namespace/HTTPS qualification gate. Neither publication was performed in local qualification.
+`scripts/publish-quality-examples.py` prepares a separate allowlisted payload for `founder-sweep/data-quality-gate-examples` without network mutation. `--publish` requires exact owner-reviewed repository/payload/source hashes and matching deployed HTTPS runtime proof; customer/private/unmanaged material is rejected. It checks remote HEAD even after an uncertain push. `scripts/publish-quality-registry.py` has a separate exact descriptor/namespace/HTTPS qualification gate. Historical local qualification did not publish these assets; the repository and Registry listing were subsequently published. Changed material needs new exact review and matching release proof.
 
 ## Tutorial series
 

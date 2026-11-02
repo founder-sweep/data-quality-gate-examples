@@ -2,7 +2,7 @@
   "name": "Data Quality Gate",
   "product": "data-quality-gate",
   "version": "quality-1.0.0",
-  "source_fingerprint": "165726ba15bf261a68a4cec294424c3704f3daa23b1f8e7003f53fb6a09c1299",
+  "source_fingerprint": "68b42afd6d9ff30db1105183ab7177fa0d22a1a648f3180762540750cf9120e2",
   "description": "Check an entire original lead, order or inventory file against an approved contract before downstream writes.",
   "formats": [
     "csv",
