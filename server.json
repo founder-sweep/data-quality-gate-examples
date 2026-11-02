@@ -3,8 +3,12 @@
   "name": "ai.contentsweep/data-quality-gate",
   "title": "Data Quality Gate",
   "description": "Check entire lead, order and inventory CSV/JSONL against approved contracts before writes.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "websiteUrl": "https://mcp.contentsweep.ai/quality?source=mcp-registry&channel=mcp&asset=data-quality-gate&campaign=quality-lead-preflight-60d",
+  "repository": {
+    "url": "https://github.com/founder-sweep/data-quality-gate-examples",
+    "source": "github"
+  },
   "remotes": [
     {
       "type": "streamable-http",
