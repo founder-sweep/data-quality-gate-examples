@@ -64,3 +64,22 @@ Use [the creator submission packet](N8N_SUBMISSION.md) after shared creator elig
 ## Tutorial series
 
 Start with lead CSV preflight, a duplicate at record 12,002, and warning review. The owned website then covers missing identifiers, unexpected statuses, exact numeric ranges, approved row-count drift and correction replay. Each guide offers full synthetic inputs, explicit rules, observed output and local reproduction instructions. Publication follows a finite reviewed backlog; exhausted weeks maintain existing material.
+
+<!-- contentsweep-skill-distribution:begin -->
+## Install the agent skill
+
+Install this skill in the intended project, then choose the coding agents you use:
+
+```sh
+npx skills add founder-sweep/data-quality-gate-examples --skill quality-preflight
+```
+
+For Claude Code, add the ContentSweep marketplace and install this product:
+
+```sh
+claude plugin marketplace add founder-sweep/contentsweep-supplier-feed-examples
+claude plugin install contentsweep-quality@contentsweep
+```
+
+The marketplace contains Supplier Feeds, Data Quality Gate, Inspector and Schema Mapper. Each plugin loads its existing product skill and companion references. Installation grants no upload, spending, business-rule approval or destination-write permission. MCP connections and runtime dependencies are configured separately using the bundled [agent setup](skills/contentsweep-quality/AGENT_SETUP.md). Review the supported scope, privacy, free/local options and current hosted pricing before use.
+<!-- contentsweep-skill-distribution:end -->
