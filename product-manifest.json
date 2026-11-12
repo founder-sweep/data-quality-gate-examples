@@ -28,5 +28,14 @@
   "artifact": {
     "distribution": "hosted HTTPS; no local runtime artifact",
     "endpoint": "https://mcp.contentsweep.ai/v1/quality/mcp/"
+  },
+  "owned_skill_files": {
+    "TOOLS.json": "22d1656a0a5ff8e8e72b72616c372c30ebf1c4861849b70306e2aaa768ba094f",
+    "agent.css": "9d19b21c1d1894c8bc2d5a8b9e9b7fa4f0c7f159466a1c4709e5e7d4dd44788e",
+    "claude.mcp.json": "e5fe143ef041082c84c9dabe667c53ca6c7a7e91d8ecaf789de6f21abb4edfa7",
+    "codex.toml": "526996f841888915d30fe8a84671d56fc3531db95771e341c437b1d7ce0505ce",
+    "AGENT_SETUP.md": "4bdb62d83569747b53089efd5d0d496051e70015cab0f5cd08e5fdb366f7cd41",
+    "TOOL_REFERENCE.md": "faa7937a7545b884e57607626d88e1f2fd764ad2b1101dee3591016e35319074",
+    "SKILL.md": "133ad78ea53dc91078d36587f446cf194f3e1b5cd242cc1da572eea7d57af9f1"
   }
 }
