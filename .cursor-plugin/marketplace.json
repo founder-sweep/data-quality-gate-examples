@@ -1,0 +1,17 @@
+{
+  "name": "contentsweep-quality",
+  "owner": {
+    "name": "Content Sweep LLC",
+    "email": "founder@contentsweep.ai"
+  },
+  "metadata": {
+    "description": "Check every row of a flat file against approved rules before a CRM or database write."
+  },
+  "plugins": [
+    {
+      "name": "contentsweep-quality",
+      "source": "./",
+      "description": "Check every row of a flat file against approved rules before a CRM or database write."
+    }
+  ]
+}
