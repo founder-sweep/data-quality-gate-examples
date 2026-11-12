@@ -1,7 +1,7 @@
 {
   "name": "contentsweep-quality",
   "version": "1.0.0",
-  "description": "Check every row of a flat lead file against approved rules before a CRM or database write.",
+  "description": "Check every row of a flat file against approved rules before a CRM or database write.",
   "author": {
     "name": "Content Sweep LLC",
     "email": "founder@contentsweep.ai"

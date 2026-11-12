@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "contentsweep-quality": {
+      "url": "https://mcp.contentsweep.ai/v1/quality/mcp/",
+      "headers": {
+        "X-API-Key": "${env:CONTENTSWEEP_QUALITY_API_KEY}"
+      }
+    }
+  }
+}

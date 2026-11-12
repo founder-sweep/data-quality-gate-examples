@@ -1,0 +1,21 @@
+{
+  "name": "contentsweep-quality",
+  "version": "1.0.0",
+  "description": "Check every row of a flat file against approved rules before a CRM or database write.",
+  "mcpServers": {
+    "contentsweep-quality": {
+      "headers": {
+        "X-API-Key": "${CONTENTSWEEP_QUALITY_API_KEY}"
+      },
+      "httpUrl": "https://mcp.contentsweep.ai/v1/quality/mcp/"
+    }
+  },
+  "settings": [
+    {
+      "name": "Data Quality Gate API key",
+      "description": "Verified organization API key for Data Quality Gate",
+      "envVar": "CONTENTSWEEP_QUALITY_API_KEY",
+      "sensitive": true
+    }
+  ]
+}
