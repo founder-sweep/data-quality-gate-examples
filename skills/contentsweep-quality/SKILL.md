@@ -29,7 +29,7 @@ Five trials once per verified organization; $20 plus applicable tax for 100 comp
 
 ## First example
 
-Use the repository-owned leads.csv and leads.contract.json. Compare the passing fixture with the duplicate-near-end and warning guides at /quality/guides. Never substitute a profile or sampled summary for the original file.
+Use the repository-owned leads.csv and leads.contract.json. Compare the passing fixture with the duplicate-near-end and warning guides at https://mcp.contentsweep.ai/quality/guides. Never substitute a profile or sampled summary for the original file.
 
 ## Optional account and funding workflow
 
