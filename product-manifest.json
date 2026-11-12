@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "title": "Data Quality Gate",
+  "repository": "data-quality-gate-examples",
+  "plugin": "contentsweep-quality",
+  "skill": "quality-preflight",
+  "skill_path": "skills/contentsweep-quality/SKILL.md",
+  "description": "Check every row of a flat file against approved rules before a CRM or database write.",
+  "homepage": "https://mcp.contentsweep.ai/quality",
+  "mode": "hosted",
+  "endpoint": "https://mcp.contentsweep.ai/v1/quality/mcp/",
+  "tools": 17,
+  "setting": "CONTENTSWEEP_QUALITY_API_KEY",
+  "pricing": "Five trials per verified organization; $20 plus applicable tax/100 checks, with no subscription.",
+  "scope": "Original flat CSV/JSONL, approved rules, 10 MiB, 50,000 records, 100 fields. No mapping or repair; preserve original bytes.",
+  "source": "public",
+  "connection_modes": [
+    "hosted"
+  ],
+  "required_settings": [
+    "CONTENTSWEEP_QUALITY_API_KEY"
+  ],
+  "example_references": [
+    "leads.csv",
+    "leads.contract.json",
+    "leads.report.json"
+  ],
+  "artifact": {
+    "distribution": "hosted HTTPS; no local runtime artifact",
+    "endpoint": "https://mcp.contentsweep.ai/v1/quality/mcp/"
+  }
+}
