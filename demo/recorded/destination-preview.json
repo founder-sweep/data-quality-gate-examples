@@ -1,0 +1,16 @@
+{
+  "synthetic": true,
+  "write_performed": false,
+  "rows": [
+    {
+      "lead_id": "001",
+      "email": "synthetic@example.invalid",
+      "status": "new"
+    },
+    {
+      "lead_id": "002",
+      "email": "fixture@example.invalid",
+      "status": "qualified"
+    }
+  ]
+}

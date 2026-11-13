@@ -1,0 +1,37 @@
+{
+  "product": "quality",
+  "status": "passed",
+  "reason": null,
+  "client": "Gemini CLI",
+  "client_version": "0.68.0",
+  "models_observed": [
+    "gemini-3.5-flash-lite"
+  ],
+  "assertions": [
+    "three expected verdicts",
+    "late duplicate fixture exact SHA256",
+    "approved contract reused",
+    "same-key retry",
+    "three checks only",
+    "checked-original metadata matches"
+  ],
+  "synthetic": true,
+  "internal_noncash": true,
+  "customer_outcome": false,
+  "native_mcp_tool_counts": {
+    "list_quality_contracts": 1,
+    "quality_wallet": 2,
+    "get_quality_contract": 1,
+    "quote_quality_check": 3,
+    "start_quality_check": 4,
+    "get_quality_check": 9,
+    "get_quality_report": 6,
+    "get_checked_original_download": 1
+  },
+  "logs_sha256": {
+    "gemini-quality-native-exact.jsonl": "911ee189b41c38c95fc5cec2be4f665f09e32a00be5f204ea641f641eb24c166",
+    "gemini-quality-native-retry.jsonl": "7a051afc198f1cabad5eda6f23899595164453e3873bbd17db021c0bb0603b0d",
+    "gemini-quality-native.jsonl": "89a73602e22a2f31a17d02bbaaa7b679d5f31a7a572fc9da18e4a4c827dab1ac"
+  },
+  "transport_note": "Native MCP workflow; exact fixture transfer may use a reviewed native shell helper. Deterministic byte checks are recorded separately."
+}

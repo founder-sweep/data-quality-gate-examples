@@ -91,3 +91,13 @@ Check every row of a flat file against approved rules before a CRM or database w
 
 Follow [client installation and recovery](CLIENTS.md). Native configuration examples, required settings, the existing skill and supported scope are included. Catalog submission and acceptance are recorded separately.
 <!-- contentsweep-client-distribution:end -->
+
+<!-- contentsweep-product-demo:begin -->
+## Reproduce the product demo
+
+Catch a duplicate at row 12,002 before a CRM write.
+
+[Public walkthrough](https://mcp.contentsweep.ai/quality/demos/crm-preflight) · [Runnable package](demo/README.md) · [Native agent evidence](demo/agent-evidence.json)
+
+Owned synthetic input, actual recorded output, expected stop cases, checksums, installation and pricing. The page reports native agent verification separately from deterministic MCP checks. Live hosted execution uses your own private credentials and explicit evaluation allowance.
+<!-- contentsweep-product-demo:end -->

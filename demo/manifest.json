@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "product": "quality",
+  "title": "Catch a duplicate at row 12,002 before a CRM write",
+  "task": "Check original lead files against reviewed rules. Compare continue, block and warning outcomes; only continue produces a local destination preview.",
+  "synthetic": true,
+  "slug": "crm-preflight",
+  "url": "https://mcp.contentsweep.ai/quality/demos/crm-preflight",
+  "default_mode": "hosted",
+  "modes": [
+    "hosted"
+  ],
+  "units": 3,
+  "setting": "CONTENTSWEEP_QUALITY_API_KEY",
+  "endpoint": "https://mcp.contentsweep.ai/v1/quality/mcp/",
+  "runtime_artifact": {
+    "distribution": "hosted HTTPS; no local runtime artifact",
+    "endpoint": "https://mcp.contentsweep.ai/v1/quality/mcp/"
+  },
+  "skill": "quality-preflight",
+  "repository": "https://github.com/founder-sweep/data-quality-gate-examples",
+  "pricing": "Five trials per verified organization; $20 plus applicable tax/100 checks, with no subscription.",
+  "scope": "Original flat CSV/JSONL, approved rules, 10 MiB, 50,000 records, 100 fields. No mapping or repair; preserve original bytes.",
+  "cases": [
+    "continue",
+    "block",
+    "warning"
+  ],
+  "campaign": "quality-lead-preflight-60d",
+  "fixtures_sha256": {
+    "block.csv": "be63ee34988d1f1f5b8b7ec0907bcfae2743d0996348f92b36c3339a7f899c71",
+    "continue.csv": "ba8b67ea8c2d2b2e69cddea97304898fa8f10f07ee9c35a3702a3ebabbf7048f",
+    "contract.json": "bacd6267c7c45371c0005ea9484b8db4e6ffddd15a3b78e203458bcd00f36ee5",
+    "warning.csv": "b9930a0febbfa46e6a2160322143332f2a4c1704e8a1a9946f6a07b4d414cae5"
+  },
+  "recorded_result": "passed deterministic MCP execution",
+  "agent_run": "passed",
+  "runner_sha256": "2376130d1534c3a3122eac183c1e01ec9da050de9ac6045b9d4c790bde572aae",
+  "expected_sha256": "e9d07f2dfbd5659cc10292ace2f6601485d989db9615f45fd6c34dc2474750fe",
+  "recorded_at": "2026-11-13T16:12:44.284400+00:00",
+  "dependencies": {
+    "python": ">=3.12",
+    "mcp": ">=2.3,<3"
+  },
+  "source_provenance": {
+    "product_base_commit": "261d302bc012c26cbacbfca5d71ec80714fa4c92",
+    "distribution_base_commit": "7186488320c4ad44d81ab50bde5eb611fc3d623b",
+    "generator_sha256": "0b393f8d142a558d511da51de447e61711a77796cbfc37542bb191a43c2afae4"
+  },
+  "transfer_sha256": "125aede5160f1f291daa86d6f183d1faf5b470a2ed503f945e79af995d86bd2b",
+  "supplemental_sha256": {
+    "continue-original.csv": "ba8b67ea8c2d2b2e69cddea97304898fa8f10f07ee9c35a3702a3ebabbf7048f",
+    "destination-preview.json": "37878d828b6f290f819ce4c65d480477bc12de9d1e4ee035593166bfe4693a00"
+  }
+}

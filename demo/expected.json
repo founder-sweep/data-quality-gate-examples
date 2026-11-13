@@ -1,0 +1,290 @@
+{
+  "evidence_kind": "Recorded deterministic MCP execution of owned synthetic fixtures; not a customer outcome",
+  "execution": "deterministic MCP client; not a native agent transcript",
+  "fixtures_sha256": {
+    "block.csv": "be63ee34988d1f1f5b8b7ec0907bcfae2743d0996348f92b36c3339a7f899c71",
+    "continue.csv": "ba8b67ea8c2d2b2e69cddea97304898fa8f10f07ee9c35a3702a3ebabbf7048f",
+    "contract.json": "bacd6267c7c45371c0005ea9484b8db4e6ffddd15a3b78e203458bcd00f36ee5",
+    "warning.csv": "b9930a0febbfa46e6a2160322143332f2a4c1704e8a1a9946f6a07b4d414cae5"
+  },
+  "internal_noncash_qualification": true,
+  "mode": "hosted",
+  "original_result_sha256": "5c36372846e472298fa5aaea04d270793e86f2bf99fd02a3ec53b95a501065eb",
+  "product": "quality",
+  "recorded_at": "2026-11-13T16:12:44.284400+00:00",
+  "result": {
+    "cases": [
+      {
+        "case": "continue",
+        "input_sha256": "ba8b67ea8c2d2b2e69cddea97304898fa8f10f07ee9c35a3702a3ebabbf7048f",
+        "local_destination_preview": true,
+        "report": {
+          "contract_hash": "6fc621ff03d9fc70ea47ecfa0040c95c618fdf615f3be482437e8d74fb635aad",
+          "coverage": {
+            "business_meanings": "operator-approved; not independently verified",
+            "complete_file": true,
+            "field_counts": {
+              "email": {
+                "invalid_type": 0,
+                "missing": 0,
+                "null": 0
+              },
+              "lead_id": {
+                "invalid_type": 0,
+                "missing": 0,
+                "null": 0
+              },
+              "status": {
+                "invalid_type": 0,
+                "missing": 0,
+                "null": 0
+              }
+            },
+            "fields_checked": [
+              "email",
+              "lead_id",
+              "status"
+            ],
+            "fields_unchecked": [
+              
+            ],
+            "records_evaluated": 2,
+            "rules_evaluated": 5
+          },
+          "engine_version": "quality-1.0.0",
+          "evaluated_rule_ids": [
+            "required-id",
+            "unique-id",
+            "nonempty-file",
+            "required-email",
+            "lead-status"
+          ],
+          "failure_counts": {
+            "lead-status": 0,
+            "nonempty-file": 0,
+            "required-email": 0,
+            "required-id": 0,
+            "unique-id": 0
+          },
+          "findings": [
+            
+          ],
+          "full_file_validation": true,
+          "input_fingerprint": "ba8b67ea8c2d2b2e69cddea97304898fa8f10f07ee9c35a3702a3ebabbf7048f",
+          "privacy": "counts and bounded 1-based record references; no raw values",
+          "product": "data-quality-gate",
+          "record_count": 2,
+          "schema_version": "1.0",
+          "structure": {
+            "fields": [
+              "email",
+              "lead_id",
+              "status"
+            ],
+            "fingerprint": "21445a451bd32d3116c934ef19a74504bda4062c87451fe83d0733ad0e7d713c"
+          },
+          "verdict": "continue"
+        },
+        "retry_same_job": true,
+        "verdict": "continue"
+      },
+      {
+        "case": "block",
+        "input_sha256": "be63ee34988d1f1f5b8b7ec0907bcfae2743d0996348f92b36c3339a7f899c71",
+        "local_destination_preview": false,
+        "report": {
+          "contract_hash": "6fc621ff03d9fc70ea47ecfa0040c95c618fdf615f3be482437e8d74fb635aad",
+          "coverage": {
+            "business_meanings": "operator-approved; not independently verified",
+            "complete_file": true,
+            "field_counts": {
+              "email": {
+                "invalid_type": 0,
+                "missing": 0,
+                "null": 0
+              },
+              "lead_id": {
+                "invalid_type": 0,
+                "missing": 0,
+                "null": 0
+              },
+              "status": {
+                "invalid_type": 0,
+                "missing": 0,
+                "null": 0
+              }
+            },
+            "fields_checked": [
+              "email",
+              "lead_id",
+              "status"
+            ],
+            "fields_unchecked": [
+              
+            ],
+            "records_evaluated": 12002,
+            "rules_evaluated": 5
+          },
+          "engine_version": "quality-1.0.0",
+          "evaluated_rule_ids": [
+            "required-id",
+            "unique-id",
+            "nonempty-file",
+            "required-email",
+            "lead-status"
+          ],
+          "failure_counts": {
+            "lead-status": 0,
+            "nonempty-file": 0,
+            "required-email": 0,
+            "required-id": 0,
+            "unique-id": 1
+          },
+          "findings": [
+            {
+              "action": "block",
+              "failure_count": 1,
+              "references_truncated": false,
+              "row_references": [
+                12002
+              ],
+              "rule_id": "unique-id",
+              "type": "unique"
+            }
+          ],
+          "full_file_validation": true,
+          "input_fingerprint": "be63ee34988d1f1f5b8b7ec0907bcfae2743d0996348f92b36c3339a7f899c71",
+          "privacy": "counts and bounded 1-based record references; no raw values",
+          "product": "data-quality-gate",
+          "record_count": 12002,
+          "schema_version": "1.0",
+          "structure": {
+            "fields": [
+              "email",
+              "lead_id",
+              "status"
+            ],
+            "fingerprint": "21445a451bd32d3116c934ef19a74504bda4062c87451fe83d0733ad0e7d713c"
+          },
+          "verdict": "block"
+        },
+        "retry_same_job": true,
+        "verdict": "block"
+      },
+      {
+        "case": "warning",
+        "input_sha256": "b9930a0febbfa46e6a2160322143332f2a4c1704e8a1a9946f6a07b4d414cae5",
+        "local_destination_preview": false,
+        "report": {
+          "contract_hash": "6fc621ff03d9fc70ea47ecfa0040c95c618fdf615f3be482437e8d74fb635aad",
+          "coverage": {
+            "business_meanings": "operator-approved; not independently verified",
+            "complete_file": true,
+            "field_counts": {
+              "email": {
+                "invalid_type": 0,
+                "missing": 0,
+                "null": 0
+              },
+              "lead_id": {
+                "invalid_type": 0,
+                "missing": 0,
+                "null": 0
+              },
+              "status": {
+                "invalid_type": 0,
+                "missing": 0,
+                "null": 0
+              }
+            },
+            "fields_checked": [
+              "email",
+              "lead_id",
+              "status"
+            ],
+            "fields_unchecked": [
+              
+            ],
+            "records_evaluated": 3,
+            "rules_evaluated": 5
+          },
+          "engine_version": "quality-1.0.0",
+          "evaluated_rule_ids": [
+            "required-id",
+            "unique-id",
+            "nonempty-file",
+            "required-email",
+            "lead-status"
+          ],
+          "failure_counts": {
+            "lead-status": 1,
+            "nonempty-file": 0,
+            "required-email": 0,
+            "required-id": 0,
+            "unique-id": 0
+          },
+          "findings": [
+            {
+              "action": "warn",
+              "failure_count": 1,
+              "references_truncated": false,
+              "row_references": [
+                3
+              ],
+              "rule_id": "lead-status",
+              "type": "accepted_values"
+            }
+          ],
+          "full_file_validation": true,
+          "input_fingerprint": "b9930a0febbfa46e6a2160322143332f2a4c1704e8a1a9946f6a07b4d414cae5",
+          "privacy": "counts and bounded 1-based record references; no raw values",
+          "product": "data-quality-gate",
+          "record_count": 3,
+          "schema_version": "1.0",
+          "structure": {
+            "fields": [
+              "email",
+              "lead_id",
+              "status"
+            ],
+            "fingerprint": "21445a451bd32d3116c934ef19a74504bda4062c87451fe83d0733ad0e7d713c"
+          },
+          "verdict": "continue_with_warnings"
+        },
+        "retry_same_job": true,
+        "verdict": "continue_with_warnings"
+      }
+    ],
+    "maximum_units": 3,
+    "original_bytes_verified": true
+  },
+  "server": {
+    "description": "Preflight an entire lead, order or inventory CSV/JSONL before CRM/database writes using explicitly approved contracts. No transformations.",
+    "icons": null,
+    "name": "ai.contentsweep/data-quality-gate",
+    "title": null,
+    "version": "1.0.0",
+    "website_url": null
+  },
+  "status": "passed",
+  "synthetic": true,
+  "tools": [
+    "upload_quality_file",
+    "draft_quality_contract",
+    "get_quality_contract",
+    "list_quality_contracts",
+    "delete_quality_decision",
+    "approve_quality_contract",
+    "draft_quality_baseline",
+    "approve_quality_baseline",
+    "get_quality_baseline",
+    "quote_quality_check",
+    "start_quality_check",
+    "get_quality_check",
+    "get_quality_report",
+    "get_checked_original_download",
+    "quality_wallet",
+    "quality_billing_status",
+    "quality_purchase_history"
+  ]
+}

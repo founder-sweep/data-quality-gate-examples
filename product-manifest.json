@@ -38,5 +38,45 @@
     "TOOL_REFERENCE.md": "50023aae2e28cd69d3bd98f36afa79fd627749ee9e6825fcccf5ae42fdf98947",
     "SKILL.md": "10d989c0f022c60ae389398acde8b0d2dc59797d7ed78eb6a5802d0dfd97f65c",
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  "demo": {
+    "url": "https://mcp.contentsweep.ai/quality/demos/crm-preflight",
+    "slug": "crm-preflight",
+    "title": "Catch a duplicate at row 12,002 before a CRM write",
+    "cases": [
+      "continue",
+      "block",
+      "warning"
+    ],
+    "default_mode": "hosted",
+    "package_path": "demo",
+    "max_units": 3,
+    "campaign": "quality-lead-preflight-60d",
+    "artifact_hashes": {
+      "block.csv": "be63ee34988d1f1f5b8b7ec0907bcfae2743d0996348f92b36c3339a7f899c71",
+      "continue.csv": "ba8b67ea8c2d2b2e69cddea97304898fa8f10f07ee9c35a3702a3ebabbf7048f",
+      "contract.json": "bacd6267c7c45371c0005ea9484b8db4e6ffddd15a3b78e203458bcd00f36ee5",
+      "warning.csv": "b9930a0febbfa46e6a2160322143332f2a4c1704e8a1a9946f6a07b4d414cae5"
+    },
+    "archive_sha256": "c3fea1cffed0200df2e3fb950e20b01411e182ec937a401c0c610fc4be9a0c93",
+    "recorded_result_sha256": "5c36372846e472298fa5aaea04d270793e86f2bf99fd02a3ec53b95a501065eb",
+    "agent_status": "passed",
+    "fixtures_path": "demo/fixtures",
+    "source_base_commit": "7186488320c4ad44d81ab50bde5eb611fc3d623b",
+    "files": {
+      "AGENT_PROMPT.md": "2a9983898466b51765bd7a1ab45d611f6c1b716394a16f4bfd4ec344a9270910",
+      "README.md": "867bb79152065b24e5e4c2898854359f6f56c8f232390fc224d110758e433479",
+      "agent-evidence.json": "7b48e803edf82767e7c45f1811d328c3196f544b20564c8fff659fc3e514bf6b",
+      "expected.json": "e9d07f2dfbd5659cc10292ace2f6601485d989db9615f45fd6c34dc2474750fe",
+      "fixtures/block.csv": "be63ee34988d1f1f5b8b7ec0907bcfae2743d0996348f92b36c3339a7f899c71",
+      "fixtures/continue.csv": "ba8b67ea8c2d2b2e69cddea97304898fa8f10f07ee9c35a3702a3ebabbf7048f",
+      "fixtures/contract.json": "bacd6267c7c45371c0005ea9484b8db4e6ffddd15a3b78e203458bcd00f36ee5",
+      "fixtures/warning.csv": "b9930a0febbfa46e6a2160322143332f2a4c1704e8a1a9946f6a07b4d414cae5",
+      "manifest.json": "543aa78f08f298c2bc9eab173cffc764943d46687af35a3eba5506af61a300cf",
+      "recorded/continue-original.csv": "ba8b67ea8c2d2b2e69cddea97304898fa8f10f07ee9c35a3702a3ebabbf7048f",
+      "recorded/destination-preview.json": "37878d828b6f290f819ce4c65d480477bc12de9d1e4ee035593166bfe4693a00",
+      "run.py": "2376130d1534c3a3122eac183c1e01ec9da050de9ac6045b9d4c790bde572aae",
+      "transfer.py": "125aede5160f1f291daa86d6f183d1faf5b470a2ed503f945e79af995d86bd2b"
+    }
   }
 }

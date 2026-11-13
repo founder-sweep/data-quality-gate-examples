@@ -1,0 +1,4 @@
+lead_id,email,status
+001,synthetic@example.invalid,new
+002,fixture@example.invalid,qualified
+003,review@example.invalid,unknown
