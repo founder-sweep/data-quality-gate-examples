@@ -58,11 +58,11 @@
       "contract.json": "bacd6267c7c45371c0005ea9484b8db4e6ffddd15a3b78e203458bcd00f36ee5",
       "warning.csv": "b9930a0febbfa46e6a2160322143332f2a4c1704e8a1a9946f6a07b4d414cae5"
     },
-    "archive_sha256": "c3fea1cffed0200df2e3fb950e20b01411e182ec937a401c0c610fc4be9a0c93",
+    "archive_sha256": "10a66c3834de3a9155be0f749d6d8f99caa615c851c9dafa391b7db1ab9ec5c8",
     "recorded_result_sha256": "5c36372846e472298fa5aaea04d270793e86f2bf99fd02a3ec53b95a501065eb",
     "agent_status": "passed",
     "fixtures_path": "demo/fixtures",
-    "source_base_commit": "7186488320c4ad44d81ab50bde5eb611fc3d623b",
+    "source_base_commit": "43721a2c256acc92b9dc91adaaf4288f8c1cc5ed",
     "files": {
       "AGENT_PROMPT.md": "2a9983898466b51765bd7a1ab45d611f6c1b716394a16f4bfd4ec344a9270910",
       "README.md": "867bb79152065b24e5e4c2898854359f6f56c8f232390fc224d110758e433479",
@@ -72,7 +72,7 @@
       "fixtures/continue.csv": "ba8b67ea8c2d2b2e69cddea97304898fa8f10f07ee9c35a3702a3ebabbf7048f",
       "fixtures/contract.json": "bacd6267c7c45371c0005ea9484b8db4e6ffddd15a3b78e203458bcd00f36ee5",
       "fixtures/warning.csv": "b9930a0febbfa46e6a2160322143332f2a4c1704e8a1a9946f6a07b4d414cae5",
-      "manifest.json": "543aa78f08f298c2bc9eab173cffc764943d46687af35a3eba5506af61a300cf",
+      "manifest.json": "4590006aec6de5bf29987be9842622b2e008f3a19dfadc05532b1abad0bf6ef0",
       "recorded/continue-original.csv": "ba8b67ea8c2d2b2e69cddea97304898fa8f10f07ee9c35a3702a3ebabbf7048f",
       "recorded/destination-preview.json": "37878d828b6f290f819ce4c65d480477bc12de9d1e4ee035593166bfe4693a00",
       "run.py": "2376130d1534c3a3122eac183c1e01ec9da050de9ac6045b9d4c790bde572aae",
