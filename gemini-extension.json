@@ -1,7 +1,7 @@
 {
   "name": "contentsweep-quality",
   "version": "1.0.0",
-  "description": "Check every row of a flat file against approved rules before a CRM or database write.",
+  "description": "Proven whole-file preflight for CRM imports, with continue, block and warning decisions. Repeatable demo catches a duplicate at row 12,002.",
   "mcpServers": {
     "contentsweep-quality": {
       "headers": {

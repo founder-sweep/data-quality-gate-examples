@@ -1,5 +1,16 @@
 # Check lead CSV files before your agent writes to a CRM
 
+<!-- contentsweep-proven-capability:begin -->
+**Fully capable of checking every record in supported flat files against approved rules before a CRM or database write.**
+
+Proven whole-file preflight for CRM imports, with continue, block and warning decisions. Repeatable demo catches a duplicate at row 12,002.
+
+The repeatable demo shows all three decisions, catches the duplicate at record 12,002, preserves the original bytes, and verifies retry accounting.
+
+[Inspect the result and repeat the demo](https://mcp.contentsweep.ai/quality/demos/crm-preflight) · [Runnable package](demo/README.md) · [Capability and verification details](CAPABILITIES.md)
+<!-- contentsweep-proven-capability:end -->
+
+
 <!-- agent-current-status:start -->
 ## Current status — November 1, 2026
 
@@ -87,7 +98,7 @@ The marketplace contains Supplier Feeds, Data Quality Gate, Inspector, Schema Ma
 <!-- contentsweep-client-distribution:begin -->
 ## Gemini, Kilo, Cline and Cursor
 
-Check every row of a flat file against approved rules before a CRM or database write.
+Proven whole-file preflight for CRM imports, with continue, block and warning decisions. Repeatable demo catches a duplicate at row 12,002.
 
 Follow [client installation and recovery](CLIENTS.md). Native configuration examples, required settings, the existing skill and supported scope are included. Catalog submission and acceptance are recorded separately.
 <!-- contentsweep-client-distribution:end -->

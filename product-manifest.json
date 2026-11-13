@@ -5,7 +5,7 @@
   "plugin": "contentsweep-quality",
   "skill": "quality-preflight",
   "skill_path": "skills/contentsweep-quality/SKILL.md",
-  "description": "Check every row of a flat file against approved rules before a CRM or database write.",
+  "description": "Proven whole-file preflight for CRM imports, with continue, block and warning decisions. Repeatable demo catches a duplicate at row 12,002.",
   "homepage": "https://mcp.contentsweep.ai/quality",
   "mode": "hosted",
   "endpoint": "https://mcp.contentsweep.ai/v1/quality/mcp/",
@@ -78,5 +78,20 @@
       "run.py": "2376130d1534c3a3122eac183c1e01ec9da050de9ac6045b9d4c790bde572aae",
       "transfer.py": "125aede5160f1f291daa86d6f183d1faf5b470a2ed503f945e79af995d86bd2b"
     }
+  },
+  "marketing": {
+    "product": "data-quality-gate",
+    "title": "Data Quality Gate",
+    "description": "Proven whole-file preflight for CRM imports, with continue, block and warning decisions. Repeatable demo catches a duplicate at row 12,002.",
+    "capability": "Fully capable of checking every record in supported flat files against approved rules before a CRM or database write.",
+    "proof": "The repeatable demo shows all three decisions, catches the duplicate at record 12,002, preserves the original bytes, and verifies retry accounting.",
+    "scope": "Original flat CSV/JSONL, approved rules, 10 MiB, 50,000 records, 100 fields. No mapping or repair; preserve original bytes.",
+    "homepage": "https://mcp.contentsweep.ai/quality",
+    "demo_url": "https://mcp.contentsweep.ai/quality/demos/crm-preflight",
+    "recorded_result_url": "https://mcp.contentsweep.ai/quality/demos/crm-preflight/expected.json",
+    "agent_evidence_url": "https://mcp.contentsweep.ai/quality/demos/crm-preflight/agent-evidence.json",
+    "demo_archive_sha256": "10a66c3834de3a9155be0f749d6d8f99caa615c851c9dafa391b7db1ab9ec5c8",
+    "verification": "passed repeatable synthetic MCP workflows",
+    "native_gemini_capture": "passed"
   }
 }
