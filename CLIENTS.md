@@ -65,7 +65,7 @@ If the client cannot supply the exact content through the MCP upload tool, its r
 
 ```bash
 INPUT_FILE="/absolute/path/to/owned.csv"
-curl --fail-with-body --silent --show-error --request POST "https://uploads?format=csv" \
+curl --fail-with-body --silent --show-error --request POST "https://mcp.contentsweep.ai/v1/quality/uploads?format=csv" \
   --header "Content-Type: application/octet-stream" \
   --header "X-API-Key: ${CONTENTSWEEP_QUALITY_API_KEY}" \
   --data-binary "@${INPUT_FILE}"
